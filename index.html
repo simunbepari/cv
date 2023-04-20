@@ -1,67 +1,85 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
-
+<html lang="en">
 <head>
-  <meta charset="utf-8">
-  <title>Simun's Personel Site</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drum kit</title>
+    <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
-  <table>
-    <tr>
-      <td><img src="https://yt3.ggpht.com/ytc/AKedOLT6zGBvEOU86cP5f7-eFBx6DUAGO57DgnPZ68qu=s176-c-k-c0x00ffffff-no-rj" alt="Simun Profile Picture"></td>
-      <td><h1>Simun Bepari</h1>
-      <p><em>Foinder of my <strong><a href="https://www.appbrewery.co/">The App Brewery</a></strong></em></p>
-      <p>I am a web developer, I love coffee and I want to learn furthur</p></td>
-    </tr>
-  </table>
+    <div class="keys">
+        <div data-key="65" class="key">
+            <kbd>A</kbd>
+            <span class="sound">clap</span>
+        </div>
+        <div data-key="83" class="key">
+            <kbd>S</kbd>
+            <span class="sound">clap</span>
+        </div>
+        <div data-key="68" class="key">
+            <kbd>D</kbd>
+            <span class="sound">clap</span>
+        </div>
+        <div data-key="70" class="key">
+            <kbd>F</kbd>
+            <span class="sound">clap</span>
+        </div>
+        <div data-key="71" class="key">
+            <kbd>G</kbd>
+            <span class="sound">clap</span>
+        </div>
+        <div data-key="72" class="key">
+            <kbd>H</kbd>
+            <span class="sound">clap</span>
+        </div>
+        <div data-key="74" class="key">
+            <kbd>J</kbd>
+            <span class="sound">clap</span>
+        </div>
+        <div data-key="75" class="key">
+            <kbd>K</kbd>
+            <span class="sound">clap</span>
+        </div>
+        <div data-key="76" class="key">
+            <kbd>L</kbd>
+            <span class="sound">clap</span>
+        </div>
+    </div>
 
-  <hr>
-  <h3>Books and Teaching</h3>
-  <ul>
-    <li>First book</li>
-    <li>Second book</li>
-    <li>Third book</li>
-  </ul>
-  <hr>
-  <table>
-    <thead>
-      <tr>
-        <th>Dates</th>
-        <th>Work</th>
-      </tr>
-    </thead>
-    <tr>
-      <td>2013-2017</td>
-      <td>Rungta College of Eng and Technology, Bhilai</td>
-      <td></td>
-    </tr>
-    <tr>
-      <td>2019</td>
-      <td>Got Married</td>
-    </tr>
-  </table>
-  <hr>
-  <h3>Skills</h3>
-  <table>
-    <tr>
-      <td>iOS Development⭐⭐⭐⭐⭐</td>
-      <td>Web Development⭐⭐⭐⭐</td>
-    </tr>
-    <tr>
-      <td>Photography⭐⭐⭐⭐</td>
-      <td>Painting⭐⭐⭐</td>
-    </tr>
-  </table>
-  <hr>
-  <ul>
-    <a href="Hobbies.html">My Hobbies</a>
-  </ul>
-  <ul>
-    <a href="Contact.html">Contact me</a>
-  </ul>
-  <hr>
-  </ol>
+    <audio data-key="65" src="Sounds/46_ClackOpenHiHat_853 (1).wav"></audio>
+    <audio data-key="83" src="Sounds/64_Kick_122_10.wav"></audio>
+    <audio data-key="68" src="Sounds/Clap_23_480.wav"></audio>
+    <audio data-key="70" src="Sounds/ElectroCarSpeakersHiHat_01_564.wav"></audio>
+    <audio data-key="71" src="Sounds/PercHi_296_SP_06.wav"></audio>
+    <audio data-key="72" src="Sounds/Ride_SP_106_02.wav"></audio>
+    <audio data-key="74" src="Sounds/Sonor02CndrSnare_04_705.wav"></audio>
+    <audio data-key="75" src="Sounds/Tom_49_1_SP.wav"></audio>
+    <audio data-key="76" src="Sounds/WindowpaneOpenHiHat_02_604.wav"></audio>
+
+    <script>
+        function playSound(e){            
+            const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);
+            const key = document.querySelector(`.key[data-key="${e.keyCode}"]`);
+            if(!audio) return; // stop thr function from running altogether
+            audio.currentTime=0; //rewind to the start
+            audio.play();
+
+            key.classList.add('playing');
+        }
+        
+        function removeTransition(e) {
+            if(e.propertyName!== 'transform') return;// skip if not transform
+            console.log(this);
+            this.classList.remove('playing');         
+            }
+        
+        
+        const keys = document.querySelectorAll(".key");
+        keys.forEach(key => key.addEventListener('transitionend', removeTransition) )
+        
+        window.addEventListener('keydown', playSound);
+
+    </script>
 </body>
-
 </html>
